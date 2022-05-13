@@ -10,6 +10,12 @@ namespace HomeWork_1
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Укажите имя:");
+            string userName = Console.ReadLine();
+
+            DateTime dateTime = DateTime.Now;
+            Console.WriteLine($"Привет, {userName}, сегодня {dateTime}");
+            Console.ReadKey();
         }
     }
 }
