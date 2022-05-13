@@ -15,7 +15,8 @@ namespace HomeWork_1
 
             DateTime dateTime = DateTime.Now;
             Console.WriteLine($"Привет, {userName}, сегодня {dateTime}");
-            Console.ReadKey();
+            
+            Console.ReadLine();
         }
     }
 }
