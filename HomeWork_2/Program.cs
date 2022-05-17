@@ -42,11 +42,11 @@ namespace HomeWork_2
             switch (rezult)
             {
                 case "1":
-                    Task1Temp();
+                    Task1_Temp();
                     SelectionResult("1");
                     break;
                 case "2":
-                    Console.WriteLine("Выбрано 2");
+                    Task2_MonthName();
                     SelectionResult("2");
                     break;
                 case "3":
@@ -68,13 +68,13 @@ namespace HomeWork_2
         /// <param name="_case">Номер текущего задания</param>
         static void SelectionResult(string _case)
         {
-            Console.WriteLine("\nПовторить? Введите да или нет.\n");
+            Console.WriteLine("\nПовторить? Введите 1 - ДА или 2 - НЕТ.\n");
             string input = Console.ReadLine();
-            if(input == "да")
+            if(input == "1")
             {
                 StartMenu(_case);
             }
-            else if(input == "нет")
+            else if(input == "2")
             {
                 Console.WriteLine("\n-----------------------------------------------\n");
                 StartMenu();
@@ -90,7 +90,7 @@ namespace HomeWork_2
         /// <summary>
         /// Метод узнает среднесуточную температуру
         /// </summary>
-        static void Task1Temp()
+        static void Task1_Temp()
         {
             Console.Write("\nУкажите значение минимальной температуры за сутки: ");
             string temp1 = Console.ReadLine();
@@ -103,6 +103,35 @@ namespace HomeWork_2
             int t3 = (t1 + t2) / 2;
             Console.WriteLine($"Средесуточная температура: {t3}");
         }
+        /// <summary>
+        /// Метод узнает название месяца по введенному номеру
+        /// </summary>
+        static void Task2_MonthName()
+        {
+            try
+            {
+                Console.Write("\nУкажите номер текущего месяца: ");
+                string rezult = Console.ReadLine();
+                int number = int.Parse(rezult);
 
+                if (number > 0 && number < 13)
+                {
+                    DateTime dateTime = new DateTime(2022, number, 1);
+                    Console.WriteLine($"{number} --> {dateTime.ToString("MMMM")}");
+                }
+                else
+                {
+                    Console.Write("\nНеверно. В году 12 месяцев.");
+                    Task2_MonthName();
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("\nОшибка. Данные не определены, пожалуйста повторите.");
+                Task2_MonthName();
+            }
+            
+            
+        }
     }
 }
