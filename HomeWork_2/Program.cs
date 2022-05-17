@@ -21,7 +21,7 @@ namespace HomeWork_2
             Console.WriteLine("ВЫБЕРЕТЕ НУЖНЫЙ ПУНКТ ИЗ МЕНЮ НИЖЕ:");
             Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++");
             Console.WriteLine("0 - Чтобы выйти из программы.");
-            Console.WriteLine("1 - Узнать среднесуточную температуру.");
+            Console.WriteLine("1 - Узнать среднесуточную температуру за сутки.");
             Console.WriteLine("2 - Узнать название месяца по введенному номеру.");
             Console.WriteLine("3 - Узнать является ли число чётным.");            
             Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++");
@@ -42,7 +42,7 @@ namespace HomeWork_2
             switch (rezult)
             {
                 case "1":
-                    Console.WriteLine("Выбрано 1");
+                    Task1Temp();
                     SelectionResult("1");
                     break;
                 case "2":
@@ -54,21 +54,21 @@ namespace HomeWork_2
                     SelectionResult("3");
                     break;
                 case "0":
-                    Environment.Exit(0);  //Подсмотрел в Googlе =)              
+                    Environment.Exit(0);  //Подсмотрел в Googlе =)
                     break;
                 default:
-                    Console.WriteLine("Не определено. Пожалуйста, укажите цифру повторно.");
+                    Console.WriteLine("\nНе определено. Пожалуйста, укажите цифру повторно.\n");
                     StartMenu();
                     break;
             }            
         }
         /// <summary>
-        /// Метод запрашивает у пользователя повторное выполнение текущего задания по его окончании.
+        /// Метод запрашивает у пользователя повторное выполнение текущего задания по его окончанию.
         /// </summary>
         /// <param name="_case">Номер текущего задания</param>
         static void SelectionResult(string _case)
         {
-            Console.WriteLine("Повторить? Введите да или нет.");
+            Console.WriteLine("\nПовторить? Введите да или нет.\n");
             string input = Console.ReadLine();
             if(input == "да")
             {
@@ -76,6 +76,7 @@ namespace HomeWork_2
             }
             else if(input == "нет")
             {
+                Console.WriteLine("\n-----------------------------------------------\n");
                 StartMenu();
             }
             else
@@ -83,7 +84,25 @@ namespace HomeWork_2
                 Console.WriteLine("Не определено. Пожалуйста повторите.");
                 SelectionResult(_case);
             }
+            
 
         }
+        /// <summary>
+        /// Метод узнает среднесуточную температуру
+        /// </summary>
+        static void Task1Temp()
+        {
+            Console.Write("\nУкажите значение минимальной температуры за сутки: ");
+            string temp1 = Console.ReadLine();
+            int t1 = int.Parse(temp1);
+
+            Console.Write("Укажите значение максимальной температуры за сутки: ");
+            string temp2 = Console.ReadLine();
+            int t2 = int.Parse(temp2);
+            
+            int t3 = (t1 + t2) / 2;
+            Console.WriteLine($"Средесуточная температура: {t3}");
+        }
+
     }
 }
