@@ -23,7 +23,8 @@ namespace HomeWork_2
             Console.WriteLine("0 - Чтобы выйти из программы.");
             Console.WriteLine("1 - Узнать среднесуточную температуру за сутки.");
             Console.WriteLine("2 - Узнать название месяца по введенному номеру.");
-            Console.WriteLine("3 - Узнать является ли число чётным.");            
+            Console.WriteLine("3 - Узнать является ли число чётным.");
+            Console.WriteLine("4 - Создание чека.");
             Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++");
             Console.WriteLine("Укажите номер:");
         }
@@ -52,6 +53,10 @@ namespace HomeWork_2
                 case "3":
                     Task3_EvenNumber();
                     SelectionResult("3");
+                    break;
+                case "4":
+                    Task4_CashCheck();
+                    SelectionResult("4");
                     break;
                 case "0":
                     return;
@@ -171,6 +176,41 @@ namespace HomeWork_2
             {
                 Console.WriteLine("\nОшибка. Данные не определены, пожалуйста повторите.");
                 Task3_EvenNumber();
+            }
+        }
+
+        static void Task4_CashCheck()
+        {
+            Console.WriteLine("\nУкажите название компании: ");
+            string inputName = Console.ReadLine();
+
+            Console.WriteLine("\nУкажите название товара: ");
+            string inputTovar = Console.ReadLine();
+
+            Console.WriteLine($"\nУкажите стоимость товара \"{inputTovar}\": ");
+            string inputSum = Console.ReadLine();
+
+            CreateCachChek(inputName, inputTovar, inputSum);
+        }
+        static void CreateCachChek(string inputName, string inputTovar, string inputSum)
+        {
+            try
+            {
+                double sum = double.Parse(inputSum);
+                Console.WriteLine("--------------------------");
+                Console.WriteLine($"Наиминование компании: \"{inputName}\"");
+                Console.WriteLine("--------------------------");
+                Console.WriteLine("Дата продажи: " + DateTime.Now);
+                Console.WriteLine($"Название товара и цена: ");
+                Console.WriteLine($"{inputTovar} - {sum:F2} руб.");
+                Console.WriteLine($"ИТОГО: {sum:F2} руб.");
+                Console.WriteLine("--------------------------");
+                Console.WriteLine("Спасибо за покупку!");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("\nОшибка. Данные не определены, пожалуйста повторите.");
+                Task4_CashCheck();
             }
         }
     }
