@@ -25,7 +25,7 @@ namespace HomeWork_2
             Console.WriteLine("2 - Узнать название месяца по введенному номеру.");
             Console.WriteLine("3 - Узнать является ли число чётным.");            
             Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++");
-            Console.WriteLine("Укажите цифру:");
+            Console.WriteLine("Укажите номер:");
         }
         /// <summary>
         /// Выводит в консоль выбронный пункт из меню.
@@ -50,12 +50,12 @@ namespace HomeWork_2
                     SelectionResult("2");
                     break;
                 case "3":
-                    Console.WriteLine("Выбрано 3");
+                    Task3_EvenNumber();
                     SelectionResult("3");
                     break;
                 case "0":
-                    Environment.Exit(0);  //Подсмотрел в Googlе =)
-                    break;
+                    return;
+
                 default:
                     Console.WriteLine("\nНе определено. Пожалуйста, укажите цифру повторно.\n");
                     StartMenu();
@@ -129,9 +129,49 @@ namespace HomeWork_2
             {
                 Console.WriteLine("\nОшибка. Данные не определены, пожалуйста повторите.");
                 Task2_MonthName();
+            }            
+            
+        }
+        /// <summary>
+        /// Метод получает число от пользователя.
+        /// </summary>
+        static void Task3_EvenNumber()
+        {            
+            Console.Write("\nУкажите число для проверки: ");
+            string input = Console.ReadLine();
+            CheckEvenNumber(input);
+        }
+        /// <summary>
+        /// Метод определет и выводит в консоль число четное или нечетное.
+        /// </summary>
+        /// <param name="strNumb">Получает введенное число пользователем.</param>
+        static void CheckEvenNumber(string strNumb)
+        {
+            try
+            {
+                int number = int.Parse(strNumb);
+                
+                if(number % 2 == 0)
+                {
+                    if(number <= 0)
+                    {
+                        Task3_EvenNumber();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Число четное.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Число нечетное.");
+                }
             }
-            
-            
+            catch (Exception)
+            {
+                Console.WriteLine("\nОшибка. Данные не определены, пожалуйста повторите.");
+                Task3_EvenNumber();
+            }
         }
     }
 }
