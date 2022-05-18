@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HomeWork_2
 {
@@ -25,6 +21,7 @@ namespace HomeWork_2
             Console.WriteLine("2 - Узнать название месяца по введенному номеру.");
             Console.WriteLine("3 - Узнать является ли число чётным.");
             Console.WriteLine("4 - Создание чека.");
+            Console.WriteLine("5 - Погода.");
             Console.WriteLine("+++++++++++++++++++++++++++++++++++++++++++++++");
             Console.WriteLine("Укажите номер:");
         }
@@ -34,11 +31,11 @@ namespace HomeWork_2
         /// <param name="rezult">Номер задания если был выбранн ранне</param>
         static void StartMenu(string rezult = null)
         {
-            if(rezult == null)
+            if (rezult == null)
             {
                 IntroMenu();
                 rezult = Console.ReadLine();
-            }   
+            }
 
             switch (rezult)
             {
@@ -58,6 +55,10 @@ namespace HomeWork_2
                     Task4_CashCheck();
                     SelectionResult("4");
                     break;
+                case "5":
+                    Task5();
+                    SelectionResult("5");
+                    break;
                 case "0":
                     return;
 
@@ -65,7 +66,7 @@ namespace HomeWork_2
                     Console.WriteLine("\nНе определено. Пожалуйста, укажите цифру повторно.\n");
                     StartMenu();
                     break;
-            }            
+            }
         }
         /// <summary>
         /// Метод запрашивает у пользователя повторное выполнение текущего задания по его окончанию.
@@ -75,11 +76,11 @@ namespace HomeWork_2
         {
             Console.WriteLine("\nПовторить? Введите 1 - ДА или 2 - НЕТ.\n");
             string input = Console.ReadLine();
-            if(input == "1")
+            if (input == "1")
             {
                 StartMenu(_case);
             }
-            else if(input == "2")
+            else if (input == "2")
             {
                 Console.WriteLine("\n-----------------------------------------------\n");
                 StartMenu();
@@ -89,25 +90,56 @@ namespace HomeWork_2
                 Console.WriteLine("Не определено. Пожалуйста повторите.");
                 SelectionResult(_case);
             }
-            
 
         }
+
         /// <summary>
-        /// Метод узнает среднесуточную температуру
+        /// Метод узнает и выводит среднесуточную температуру
         /// </summary>
         static void Task1_Temp()
         {
-            Console.Write("\nУкажите значение минимальной температуры за сутки: ");
-            string temp1 = Console.ReadLine();
-            int t1 = int.Parse(temp1);
+            int temp = averageTemp();
+            Console.WriteLine($"Средесуточная температура: {temp}");
 
-            Console.Write("Укажите значение максимальной температуры за сутки: ");
-            string temp2 = Console.ReadLine();
-            int t2 = int.Parse(temp2);
-            
-            int t3 = (t1 + t2) / 2;
-            Console.WriteLine($"Средесуточная температура: {t3}");
         }
+
+        /// <summary>
+        /// Метод высчитывает среднесуточную температуру.
+        /// </summary>
+        /// <returns>Возвращает результат среднесуточной температуры.</returns>
+        static int averageTemp()
+        {
+            int t1 = inputTemp("Укажите значение минимальной температуры за сутки: ");
+
+            int t2 = inputTemp("Укажите значение максимальной температуры за сутки: ");
+            int temp = (t1 + t2) / 2;
+
+            return temp;
+        }
+        /// <summary>
+        /// Метод получает введеные данные пользователем
+        /// </summary>
+        /// <param name="meseg">Сообщенение в котором запрашиваются какие данные требуются ввести пользователем</param>
+        /// <returns>Возвращят введенную температуру</returns>
+        static int inputTemp(string msg)
+        {
+            int number = 0;
+
+            try
+            {
+                Console.Write(msg);
+                string temp = Console.ReadLine();
+                number = int.Parse(temp);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("\nОшибка. Данные не определены, пожалуйста повторите.");
+                number = inputTemp(msg);
+            }
+
+            return number;
+        }
+
         /// <summary>
         /// Метод узнает название месяца по введенному номеру
         /// </summary>
@@ -115,33 +147,64 @@ namespace HomeWork_2
         {
             try
             {
-                Console.Write("\nУкажите номер текущего месяца: ");
-                string rezult = Console.ReadLine();
-                int number = int.Parse(rezult);
-
-                if (number > 0 && number < 13)
-                {
-                    DateTime dateTime = new DateTime(2022, number, 1);
-                    Console.WriteLine($"{number} --> {dateTime.ToString("MMMM")}");
-                }
-                else
-                {
-                    Console.Write("\nНеверно. В году 12 месяцев.");
-                    Task2_MonthName();
-                }
+                int number = inputMonth();
+                string nameMonth = findMonth(number);
+                Console.WriteLine($"{number} --> {nameMonth}");
             }
             catch (Exception)
             {
                 Console.WriteLine("\nОшибка. Данные не определены, пожалуйста повторите.");
                 Task2_MonthName();
-            }            
-            
+            }
+
+        }
+        /// <summary>
+        /// Метод получает введенный номер месяца пользователя
+        /// </summary>
+        /// <returns>Возвращает номер месяца</returns>
+        static int inputMonth()
+        {
+            int month = 0;
+
+            Console.Write("\nУкажите номер текущего месяца: ");
+            string inputNumber = Console.ReadLine();
+            int number = int.Parse(inputNumber);
+
+            if (number > 0 && number < 13)
+            {
+                month = number;
+            }
+            else
+            {
+                Console.Write("\nНеверно. В году 12 месяцев.");
+            }
+
+            if (month == 0)
+            {
+                month = inputMonth();
+            }
+
+            return month;
+        }
+
+        /// <summary>
+        /// Метод определает название месяца
+        /// </summary>
+        /// <returns>Возвращает название месяца</returns>
+        static string findMonth(int number)
+        {
+            string nameMonth = null;
+
+            DateTime dateTime = new DateTime(2022, number, 1);
+            nameMonth = dateTime.ToString("MMMM");
+
+            return nameMonth;
         }
         /// <summary>
         /// Метод получает число от пользователя.
         /// </summary>
         static void Task3_EvenNumber()
-        {            
+        {
             Console.Write("\nУкажите число для проверки: ");
             string input = Console.ReadLine();
             CheckEvenNumber(input);
@@ -155,10 +218,10 @@ namespace HomeWork_2
             try
             {
                 int number = int.Parse(strNumb);
-                
-                if(number % 2 == 0)
+
+                if (number % 2 == 0)
                 {
-                    if(number <= 0)
+                    if (number <= 0)
                     {
                         Task3_EvenNumber();
                     }
@@ -178,7 +241,9 @@ namespace HomeWork_2
                 Task3_EvenNumber();
             }
         }
-
+        /// <summary>
+        /// Метод создает чек
+        /// </summary>
         static void Task4_CashCheck()
         {
             Console.WriteLine("\nУкажите название компании: ");
@@ -192,6 +257,12 @@ namespace HomeWork_2
 
             CreateCachChek(inputName, inputTovar, inputSum);
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inputName"></param>
+        /// <param name="inputTovar"></param>
+        /// <param name="inputSum"></param>
         static void CreateCachChek(string inputName, string inputTovar, string inputSum)
         {
             try
@@ -211,6 +282,30 @@ namespace HomeWork_2
             {
                 Console.WriteLine("\nОшибка. Данные не определены, пожалуйста повторите.");
                 Task4_CashCheck();
+            }
+        }
+        /// <summary>
+        /// Метод узнает дождливая зима или нет
+        /// </summary>
+        static void Task5()
+        {
+            int number = inputMonth();
+            string nameMonth = findMonth(number);
+            int temp = averageTemp();
+
+            Console.WriteLine($"{number} --> {nameMonth}");
+            Console.WriteLine($"Средесуточная температура: {temp}");
+
+            if (number == 1 || number == 2 || number == 12)
+            {
+                if (temp > 0)
+                {
+                    Console.WriteLine("Дождливая зима.");
+                }
+                else
+                {
+                    Console.WriteLine("Зима не дождливая.");
+                }
             }
         }
     }
