@@ -19,10 +19,10 @@ namespace HomeWork_3
         static void IntroMenu()
         {
             Console.WriteLine("\nВЫБЕРЕТЕ НУЖНЫЙ ПУНКТ ИЗ МЕНЮ НИЖЕ:");
-            Console.WriteLine("+++++++++++++++++++++++++++++++++++");            
+            Console.WriteLine("+++++++++++++++++++++++++++++++++++");
             Console.WriteLine("1 - Двухмерный массив по диагонали.");
             Console.WriteLine("2 - Телефонный справочник.");
-            Console.WriteLine("3 - Строка в обратном порядке.");
+            Console.WriteLine("3 - Слово в обратном порядке.");
             Console.WriteLine("0 - Чтобы выйти из программы.");
             Console.WriteLine("+++++++++++++++++++++++++++++++++++");
             Console.Write("Укажите номер: ");
@@ -40,37 +40,37 @@ namespace HomeWork_3
                 switch (rezult)
                 {
                     case "1":
-                        Task1();                   
+                        Task1();
                         break;
                     case "2":
                         Task2();
                         break;
                     case "3":
-                        Console.WriteLine("Выбрано 3");
+                        Task3();
                         break;
                     case "0":
                         Console.WriteLine("Завершение программы.");
                         Console.ReadKey();
-                        return;                        
+                        return;
                     default:
                         Console.WriteLine("Не определено. Пожалуйста, укажите цифру повторно.");
                         break;
                 }
-            }            
+            }
         }
         /// <summary>
         /// Задание 3.1
         /// </summary>
         static void Task1()
         {
-            Console.WriteLine("==============================");
+            Console.WriteLine("\n==============================");
             Console.WriteLine("Двухмерный массив по диагонали");
             Console.WriteLine("==============================");
 
             int x = 5;
             int y = 5;
 
-            int[,] arr = CreateArray(x,y,10);
+            int[,] arr = CreateArray(x, y, 10);
 
             int p = 0;
 
@@ -82,12 +82,12 @@ namespace HomeWork_3
                     for (int f = 0; f < p; f++)
                     {
                         Console.Write(" ");
-                        if(f == p - 1)
+                        if (f == p - 1)
                         {
                             Console.Write(arr[i, j] + "\n");
                         }
                     }
-                }                
+                }
             }
 
             Console.WriteLine("==============================");
@@ -102,15 +102,15 @@ namespace HomeWork_3
         /// <returns>Двухмерный массив</returns>
         static int[,] CreateArray(int x, int y, int z)
         {
-            int[,] arr = new int[x,y];
+            int[,] arr = new int[x, y];
 
             Random rand = new Random();
 
             for (int i = 0; i < arr.GetLength(0); i++)
             {
-                for(int j = 0; j < arr.GetLength(1); j++)
+                for (int j = 0; j < arr.GetLength(1); j++)
                 {
-                    arr[i,j] = rand.Next(1,z);
+                    arr[i, j] = rand.Next(1, z);
                 }
             }
 
@@ -125,7 +125,7 @@ namespace HomeWork_3
             Console.WriteLine("Телефонный справочник");
             Console.WriteLine("=====================");
 
-            string[,] arrTell = new string[5,2];
+            string[,] arrTell = new string[5, 2];
 
             Random random = new Random();
 
@@ -137,18 +137,18 @@ namespace HomeWork_3
 
                 for (int j = 0; j < arrTell.GetLength(1); j++)
                 {
-                    if(j == 0)
+                    if (j == 0)
                     {
                         arrTell[i, j] = "Имя: Человек " + numb;
                     }
-                    if(j == 1)
+                    if (j == 1)
                     {
-                        arrTell[i, j] = "+7(" + random.Next(903, 999) + ")" + random.Next(100, 999) +"-" + random.Next(1000, 9999);
+                        arrTell[i, j] = "+7(" + random.Next(903, 999) + ")" + random.Next(100, 999) + "-" + random.Next(1000, 9999);
                     }
                 }
             }
 
-            SelectArray(arrTell);
+            SelectArray(arrTell, false);
 
             Console.WriteLine("=====================");
         }
@@ -156,13 +156,36 @@ namespace HomeWork_3
         /// Метод выводит полученный массив в консоль
         /// </summary>
         /// <param name="array">Массив для вывода в консоль</param>
-        static void SelectArray(Array array)
+        static void SelectArray(Array array, bool write)
         {
             foreach (var item in array)
             {
                 Console.WriteLine(item);
-
             }
+        }
+
+        /// <summary>
+        /// Задание 3.3
+        /// </summary>
+        static void Task3()
+        {
+            Console.WriteLine("\n========================");
+            Console.WriteLine("Слово в обратном порядке.");
+            Console.WriteLine("==========================");
+
+            Console.Write("Введите слово: ");
+            string input = Console.ReadLine();
+            
+            char[] arrChar = input.ToCharArray();
+
+            Console.Write("В обратном порядке: ");
+
+            for (int i = arrChar.Length - 1; i >= 0; i--)
+            {
+                Console.Write(arrChar[i]);
+            }
+
+            Console.WriteLine("\n==========================");
         }
     }
 }
