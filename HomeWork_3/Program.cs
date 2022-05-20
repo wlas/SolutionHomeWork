@@ -43,7 +43,7 @@ namespace HomeWork_3
                         Task1();                   
                         break;
                     case "2":
-                        Console.WriteLine("Выбрано 2");
+                        Task2();
                         break;
                     case "3":
                         Console.WriteLine("Выбрано 3");
@@ -115,6 +115,54 @@ namespace HomeWork_3
             }
 
             return arr;
+        }
+        /// <summary>
+        /// Задание 3.2
+        /// </summary>
+        static void Task2()
+        {
+            Console.WriteLine("\n=====================");
+            Console.WriteLine("Телефонный справочник");
+            Console.WriteLine("=====================");
+
+            string[,] arrTell = new string[5,2];
+
+            Random random = new Random();
+
+            int numb = 0;
+
+            for (int i = 0; i < arrTell.GetLength(0); i++)
+            {
+                numb++;
+
+                for (int j = 0; j < arrTell.GetLength(1); j++)
+                {
+                    if(j == 0)
+                    {
+                        arrTell[i, j] = "Имя: Человек " + numb;
+                    }
+                    if(j == 1)
+                    {
+                        arrTell[i, j] = "+7(" + random.Next(903, 999) + ")" + random.Next(100, 999) +"-" + random.Next(1000, 9999);
+                    }
+                }
+            }
+
+            SelectArray(arrTell);
+
+            Console.WriteLine("=====================");
+        }
+        /// <summary>
+        /// Метод выводит полученный массив в консоль
+        /// </summary>
+        /// <param name="array">Массив для вывода в консоль</param>
+        static void SelectArray(Array array)
+        {
+            foreach (var item in array)
+            {
+                Console.WriteLine(item);
+
+            }
         }
     }
 }
