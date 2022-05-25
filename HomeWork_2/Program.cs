@@ -8,6 +8,7 @@ namespace HomeWork_2
         {
             StartMenu();
             Console.ReadKey();
+
         }
         /// <summary>
         /// Вывод меню в консоль.
