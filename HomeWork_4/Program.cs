@@ -44,7 +44,7 @@ namespace HomeWork_4
                         Task1();
                         break;
                     case "2":
-                        
+                        Task2();
                         break;
                     case "3":
                         
@@ -59,6 +59,7 @@ namespace HomeWork_4
                 }
             }
         }
+        #region Task1
         /// <summary>
         /// Задание 4.1
         /// </summary>
@@ -150,6 +151,35 @@ namespace HomeWork_4
             }
             Console.WriteLine("-----------------------------");
         }
+        #endregion
 
+        #region Task2
+        /// <summary>
+        /// Задание 4.2
+        /// </summary>
+        private static void Task2()
+        {
+            try
+            {
+                Console.Write("Введите любые числа через пробел: ");
+                string input = Console.ReadLine();
+                string[] number = input.Split(' ');
+
+                int rezult = 0;
+
+                foreach (string item in number)
+                {
+                    rezult += Convert.ToInt32(item);
+                }
+
+                Console.WriteLine("Сумма всех чисел равна: " + rezult);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Ошибка. Значения не определены!");
+            }
+            
+        }
+        #endregion
     }
 }
