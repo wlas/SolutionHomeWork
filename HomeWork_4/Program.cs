@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HomeWork_4
 {
@@ -19,7 +15,7 @@ namespace HomeWork_4
         /// </summary>
         static void IntroMenu()
         {
-            Console.WriteLine("\nВЫБЕРЕТЕ НУЖНЫЙ ПУНКТ ИЗ МЕНЮ НИЖЕ:");
+            Console.WriteLine("ВЫБЕРЕТЕ НУЖНЫЙ ПУНКТ ИЗ МЕНЮ НИЖЕ:");
             Console.WriteLine("+++++++++++++++++++++++++++++++++++");
             Console.WriteLine("1 - Задание 1");
             Console.WriteLine("2 - Задание 2");
@@ -47,11 +43,11 @@ namespace HomeWork_4
                         Task2();
                         break;
                     case "3":
-                        
+                        Task3();
                         break;
                     case "0":
                         Console.WriteLine("Завершение программы.");
-                        Console.ReadKey();
+                        Console.ReadKey(true);
                         return;
                     default:
                         Console.WriteLine("Не определено. Пожалуйста, укажите цифру повторно.");
@@ -73,7 +69,7 @@ namespace HomeWork_4
             while (true)
             {
                 MenuUser();
-                string rezult = Console.ReadLine();                
+                string rezult = Console.ReadLine();
 
                 switch (rezult)
                 {
@@ -82,7 +78,7 @@ namespace HomeWork_4
                         break;
                     case "2":
                         SelectUser(users);
-                        break;                    
+                        break;
                     case "0":
                         Console.WriteLine("Выход.");
                         return;
@@ -178,7 +174,82 @@ namespace HomeWork_4
             {
                 Console.WriteLine("Ошибка. Значения не определены!");
             }
-            
+
+        }
+        #endregion
+
+        #region Task3
+        /// <summary>
+        /// Задание 4.3
+        /// </summary>
+        static void Task3()
+        {
+            Console.Write("Введите номер месяца для определения времени года: ");
+            string input = Console.ReadLine();
+
+            if (int.TryParse(input, out int rezult) && rezult > 0 && rezult <= 12) 
+            {
+                GetSeason(rezult);
+            }
+            else
+            {
+                Console.WriteLine("Ошибка: введите число от 1 до 12.");
+            }
+        }
+        /// <summary>
+        /// Метод определяет значение из перечисления по введеному месяцу для вывода на консоль времени года.
+        /// </summary>
+        /// <param name="month">Номер месяца</param>
+        static void GetSeason(int month)
+        {
+            Console.Write(month + " месяц");
+
+            if(month == 12 || month == 1 || month == 2)
+            {
+                Seasons(seasons.Winter);
+            }
+            if (month == 3 || month == 4 || month == 5)
+            {
+                Seasons(seasons.Spring);
+            }
+            if (month == 6 || month == 7 || month == 8)
+            {
+                Seasons(seasons.Summer);
+            }
+            if (month == 9 || month == 10 || month == 11)
+            {
+                Seasons(seasons.Autumn);
+            }
+        }
+        enum seasons
+        {
+            Winter,
+            Spring,
+            Summer,
+            Autumn
+        }
+        /// <summary>
+        /// Определение времени года
+        /// </summary>
+        /// <param name="s">значение из перечисления</param>
+        static void Seasons(seasons s)
+        {
+            switch (s)
+            {
+                case seasons.Winter:
+                    Console.WriteLine(" --> Зима");
+                    break;
+                case seasons.Spring:
+                    Console.WriteLine(" --> Весна");
+                    break;
+                case seasons.Summer:
+                    Console.WriteLine(" --> Лето");
+                    break;
+                case seasons.Autumn:
+                    Console.WriteLine(" --> Осень");
+                    break;                
+            }
+            Console.WriteLine("-----------------------------------");
         }
         #endregion
     }
