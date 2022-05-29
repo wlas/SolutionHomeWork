@@ -44,7 +44,7 @@ namespace HomeWork_5
                         Task1();
                         break;
                     case "2":
-                        
+                        Task2();
                         break;
                     case "3":
                         
@@ -85,6 +85,73 @@ namespace HomeWork_5
 
             Console.WriteLine("-----------------------");
         }
+        #endregion
+
+        #region Task 2
+        /// <summary>
+        /// Задание 5.2
+        /// </summary>
+        static void Task2()
+        {
+            try
+            {
+                CreateDir();
+
+                Console.WriteLine("-----------------------");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+           
+        }
+        /// <summary>
+        /// Метод создает файл при его отсутствии, в другом случае задает текущее время обращения к файлу в название файла
+        /// </summary>
+        static void CreateDir()
+        {
+            string dir = "WorkFolder";
+            string filePath = $"startup_{DateTime.Now.ToString("HH-mm-ss")}.txt";
+            string fileDir = Path.Combine(dir, filePath);
+            string notePathOld = string.Empty;
+
+            if (!Directory.Exists(dir))
+            {
+                Directory.CreateDirectory(dir);
+                CreateFile(fileDir);
+            }
+            else
+            {
+                string[] entries = Directory.GetFileSystemEntries(dir, "*.txt", SearchOption.AllDirectories);
+
+                if(entries.Length == 0)
+                {
+                    CreateFile(fileDir);
+                }
+                else
+                {
+                    for (int i = 0; i < entries.Length; i++)
+                    {
+                        notePathOld =  entries[i];
+                        File.Move(notePathOld, fileDir);
+                        break;
+                    }
+
+                    Console.WriteLine("Старое название: " + notePathOld + " --> Новое название: " + fileDir);
+                }              
+
+            }
+        }
+        /// <summary>
+        /// Метод создает файл
+        /// </summary>
+        /// <param name="fileDir">Путь файла</param>
+        static void CreateFile(string fileDir)
+        {
+            using (File.Create(fileDir))
+            Console.WriteLine("Создан новый файл: " + fileDir);
+        }
+
         #endregion
     }
 }
