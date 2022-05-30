@@ -47,7 +47,7 @@ namespace HomeWork_5
                         Task2();
                         break;
                     case "3":
-                        
+                        Task3();
                         break;
                     case "0":
                         Console.WriteLine("Завершение программы.");
@@ -97,13 +97,13 @@ namespace HomeWork_5
             {
                 CreateDir();
 
-                Console.WriteLine("-----------------------");
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
-           
+
+            Console.WriteLine("-----------------------");
         }
         /// <summary>
         /// Метод создает файл при его отсутствии, в другом случае задает текущее время обращения к файлу в название файла
@@ -152,6 +152,57 @@ namespace HomeWork_5
             Console.WriteLine("Создан новый файл: " + fileDir);
         }
 
+        #endregion
+
+        #region Task 3
+        /// <summary>
+        /// Задание 5.3
+        /// </summary>
+        static void Task3()
+        {
+            try
+            {
+                Console.Write("Введите с клавиатуры произвольный набор чисел (0...255): ");
+                string input = Console.ReadLine();
+
+                WriteByte(input);
+
+                ReadeByte();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            Console.WriteLine("\n-----------------------");
+        }       
+        static void WriteByte(string str)
+        {
+            var strArr = str.Trim().ToCharArray();
+            byte[] byteArr = new byte[strArr.Length];
+
+            for (int i = 0; i < byteArr.Length; i++)
+            {
+                byteArr[i] = Convert.ToByte(strArr[i]);
+            };
+            
+            File.WriteAllBytes("bytes.txt", byteArr);
+            
+        }
+
+        static void ReadeByte()
+        {
+            if (File.Exists("bytes.txt"))
+            {
+                Console.WriteLine("Чтение файла bytes.txt :");
+
+                byte[] fromFile = File.ReadAllBytes("bytes.txt");
+
+                foreach(byte b in fromFile)
+                {
+                    Console.Write((char)b);
+                }
+            }
+        }
         #endregion
     }
 }
