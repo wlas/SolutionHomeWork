@@ -9,6 +9,12 @@ namespace HomeWork_8
         {
             Console.WriteLine(Settings.Default.StartMsg);
 
+            if(!String.IsNullOrEmpty(Settings.Default.UserName)  && Settings.Default.Age != 0 && !String.IsNullOrEmpty(Settings.Default.Occupation))
+            {
+                SelectSettigs();
+            }
+
+
             StartMenu();
         }
 
