@@ -10,6 +10,16 @@ namespace HomeWork_7
     {
         static void Main(string[] args)
         {
+            Console.Write("Введите пароль: ");
+
+            string secret = "Пароль";
+
+            if(Console.ReadLine() == secret)
+            {
+                Console.WriteLine("Доступ разрешен.");
+            }
+
+            Console.ReadKey(true);
         }
     }
 }
