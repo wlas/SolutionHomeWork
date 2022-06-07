@@ -9,6 +9,7 @@ namespace HomeWork_8
         {
             Console.WriteLine(Settings.Default.StartMsg);
 
+            //Добавил проверку, если данные есть выведи на консоль данные
             if(!String.IsNullOrEmpty(Settings.Default.UserName)  && Settings.Default.Age != 0 && !String.IsNullOrEmpty(Settings.Default.Occupation))
             {
                 SelectSettigs();
