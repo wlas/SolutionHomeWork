@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // набора атрибутов. Измените значения этих атрибутов для изменения сведений,
 // связанные с этой сборкой.
 [assembly: AssemblyTitle("HomeWork_8")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Приложения выводит на консоль приветствие и хранит в себе данные о пользователе")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("HomeWork_8")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // Можно задать все значения или принять номера сборки и редакции по умолчанию 
 // используя "*", как показано ниже:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.0.0.1")]
+[assembly: AssemblyFileVersion("1.0.0.1")]
