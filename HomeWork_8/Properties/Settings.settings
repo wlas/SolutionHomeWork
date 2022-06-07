@@ -8,8 +8,8 @@
     <Setting Name="UserName" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="Age" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+    <Setting Name="Age" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="Occupation" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

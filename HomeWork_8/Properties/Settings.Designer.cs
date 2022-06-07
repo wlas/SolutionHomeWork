@@ -46,10 +46,10 @@ namespace HomeWork_8.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Age {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int Age {
             get {
-                return ((string)(this["Age"]));
+                return ((int)(this["Age"]));
             }
             set {
                 this["Age"] = value;

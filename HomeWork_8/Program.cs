@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using HomeWork_8.Properties;
 
 namespace HomeWork_8
 {
@@ -10,7 +7,7 @@ namespace HomeWork_8
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(Properties.Settings.Default.StartMsg);
+            Console.WriteLine(Settings.Default.StartMsg);
 
             StartMenu();
         }
@@ -43,13 +40,10 @@ namespace HomeWork_8
                 switch (rezult)
                 {
                     case "1":
-                        
+                        SelectSettigs();
                         break;
                     case "2":
-                        ;
-                        break;
-                    case "3":
-                        
+                        EditSttings();
                         break;
                     case "0":
                         Console.WriteLine("Завершение программы.");
@@ -60,6 +54,57 @@ namespace HomeWork_8
                         break;
                 }
             }
+        }
+        /// <summary>
+        /// Выводит на консоль сохраненные данные
+        /// </summary>
+        static void SelectSettigs()
+        {
+            Console.WriteLine("\n----------------------------------");
+            Console.WriteLine($"Имя: {(Settings.Default.UserName == string.Empty ? "-" : Settings.Default.UserName)}");
+            Console.WriteLine("Возраст: " + Settings.Default.Age);
+            Console.WriteLine($"Род деятельности: {(Settings.Default.Occupation == string.Empty ? "-" : Settings.Default.Occupation)}");
+            Console.WriteLine("----------------------------------");
+
+        }
+
+        /// <summary>
+        /// Измененяет данные в application Settings
+        /// </summary>
+        static void EditSttings()
+        {
+            try
+            {
+                Console.Write("Укажите имя: ");
+                string userName = Console.ReadLine();
+
+                Console.Write("Укажите возраст: ");
+                string strAge = Console.ReadLine();
+
+                if(!int.TryParse(strAge, out int age))
+                {
+                    Console.WriteLine("Ошибка ввода возраста.");
+                    return;
+                }
+
+                Console.Write("Укажите род деятельности: ");
+                string occupation = Console.ReadLine();
+
+                Settings.Default.UserName = userName;
+                Settings.Default.Age = age;
+                Settings.Default.Occupation = occupation;
+                Settings.Default.Save();
+
+                SelectSettigs();
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            
+
+
         }
     }
 }
