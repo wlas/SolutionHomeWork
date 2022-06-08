@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeWork_6", "HomeWork_6\Ho
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeWork_7", "HomeWork_7\HomeWork_7.csproj", "{BAB7FAEE-696D-47C0-B3B4-A917A32E961D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleFileManager", "ConsoleFileManager\ConsoleFileManager.csproj", "{0DF0B334-29A4-4B2E-8991-7D745CD92335}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{BAB7FAEE-696D-47C0-B3B4-A917A32E961D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BAB7FAEE-696D-47C0-B3B4-A917A32E961D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BAB7FAEE-696D-47C0-B3B4-A917A32E961D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DF0B334-29A4-4B2E-8991-7D745CD92335}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DF0B334-29A4-4B2E-8991-7D745CD92335}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DF0B334-29A4-4B2E-8991-7D745CD92335}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DF0B334-29A4-4B2E-8991-7D745CD92335}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
