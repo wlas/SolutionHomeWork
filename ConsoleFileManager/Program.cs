@@ -7,6 +7,8 @@ namespace ConsoleFileManager
 {
     internal class Program
     {
+        const string fileComands = "SaveCommands.bin";
+        static int numb = -1;
         const int WINDOW_HEIGHT = 30;
         const int WINDOW_WIDTH = 120;
         private static string currentDir = Directory.GetCurrentDirectory();
@@ -47,8 +49,8 @@ namespace ConsoleFileManager
         /// <param name="width">Длина строки ввода</param>
         static void ProcessEnterCommand(int width)
         {
-            //TODO: ...
             (int left, int top) = GetCursorPosition();
+
             StringBuilder command = new StringBuilder();
             ConsoleKeyInfo keyInfo;
             char key;
@@ -59,7 +61,7 @@ namespace ConsoleFileManager
                 key = keyInfo.KeyChar;
 
                 if (keyInfo.Key != ConsoleKey.Enter && keyInfo.Key != ConsoleKey.Backspace &&
-                    keyInfo.Key != ConsoleKey.UpArrow)
+                keyInfo.Key != ConsoleKey.UpArrow)
                     command.Append(key);
 
                 (int currentLeft, int currentTop) = GetCursorPosition();
@@ -87,10 +89,111 @@ namespace ConsoleFileManager
                         Console.SetCursorPosition(left, top);
                     }
                 }
+
+                if (keyInfo.Key == ConsoleKey.UpArrow)
+                {
+                    string str = SelectCommand(left, top, true);
+
+                    command.Clear();
+                    command.Append(str);
+                    Console.Write(str);
+
+                }
+                if (keyInfo.Key == ConsoleKey.DownArrow)
+                {
+                    string str = SelectCommand(left, top, false);
+
+                    command.Clear();
+                    command.Append(str);
+                    Console.Write(str);
+                }
             }
             while (keyInfo.Key != ConsoleKey.Enter);
             ParseCommandString(command.ToString());
+            numb = -1;
         }
+        /// <summary>
+        /// Возвращаем массив команд из файла.
+        /// </summary>
+        /// <returns>Возвращается массив команд из файла</returns>
+        static string[] SelectSaveCommands()
+        {
+            string[] lines = null;
+
+            if (File.Exists(fileComands))
+            {
+                lines = File.ReadAllLines(fileComands);                
+            }
+            return lines;
+        }
+        /// <summary>
+        /// Вывод раннее записанной команды на консоль
+        /// </summary>
+        /// <param name="left">Расположение курсора по оси X</param>
+        /// <param name="top">Расположение курсора по оси Y</param>
+        /// <param name="rezult">true - стрелка вверх; false - стрелка вниз</param>
+        /// <returns></returns>
+        static string SelectCommand(int left, int top, bool rezult)
+        {
+            (int currentLeft, int currentTop) = GetCursorPosition();
+            string str = null;
+
+            string[] arr = SelectSaveCommands();
+
+            if (arr != null)
+            {
+                if (arr.Length > 0)
+                {
+                    if (rezult == true)
+                    {
+                        if (numb == -1)
+                        {
+                            numb = arr.Length - 1;
+                            str = arr[numb];
+                        }
+                        else
+                        {
+                            if (numb <= arr.Length && numb > 0)
+                            {
+                                if (numb == arr.Length)
+                                {
+                                    numb = arr.Length - 1;
+                                }
+                                str = arr[numb--];
+                            }
+                            else
+                            {
+                                str = arr[0];
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (numb == -1)
+                        {
+                            str = arr[0];
+                            numb = 0;
+                        }
+                        else
+                        {
+                            if (numb < arr.Length && numb >= 0)
+                            {
+                                str = arr[numb++];
+                            }
+                        }
+                    }
+                }
+                do
+                {
+                    Console.SetCursorPosition(--currentLeft, top);
+                    Console.Write(" ");
+                }
+                while (currentLeft != left);
+            }
+
+            return str;            
+        }
+
         /// <summary>
         /// Выводит на консоль информацию о файле
         /// </summary>
@@ -130,10 +233,26 @@ namespace ConsoleFileManager
         /// </summary>
         /// <param name="command">Команда переданная пользователем</param>
         static void ParseCommandString(string command)
-        {
+        {            
             string[] commandParams = command.ToLower().Split(' ');
+
             if (commandParams.Length > 0)
             {
+                if(command.Length > 1)
+                {
+                    if (!File.Exists(fileComands))
+                    {
+                        File.WriteAllText(fileComands, command.Trim() + "\n");
+                    }
+                    else
+                    {
+                        if (!SearchCommands(command.Trim()))
+                        {
+                            File.AppendAllText(fileComands, command.Trim() + "\n");
+                        }                        
+                    }
+                }               
+
                 switch (commandParams[0])
                 {
                     case "cd":
@@ -271,7 +390,6 @@ namespace ConsoleFileManager
                     case "mkdir":
                         if (commandParams.Length > 1)
                         {
-
                             if (!Directory.Exists(commandParams[1]))
                             {
                                 Directory.CreateDirectory(currentDir + @"\" + commandParams[1]);
@@ -312,8 +430,37 @@ namespace ConsoleFileManager
             }
             UpdateConsole();
         }
+        /// <summary>
+        /// Поиск введенной команды в сохранненом списке ранее
+        /// </summary>
+        /// <param name="command">Команда введенная пользователем</param>
+        /// <returns>true - нашлась команда; false - не нашлась команда</returns>
+        static bool SearchCommands(string command)
+        {
+            bool rezult = false;
 
-        // Копирование каталога и подкаталогов
+            if (File.Exists(fileComands))
+            {
+                string[] commands = SelectSaveCommands();
+                for (int i = 0; i < commands.Length; i++)
+                {
+                    if (commands[i] == command)
+                    {
+                        rezult = true;
+                        break;
+                    }
+                }
+            }
+
+            return rezult;
+        }
+
+        /// <summary>
+        /// Копирование каталога и подкаталогов
+        /// </summary>
+        /// <param name="sourceDir">Дерикотрия копирования</param>
+        /// <param name="destinationDir">Новая директория</param>
+        /// <param name="recursive"></param>
         static void CopyDirectory(string sourceDir, string destinationDir, bool recursive)
         {
             var dir = new DirectoryInfo(sourceDir);
@@ -333,7 +480,6 @@ namespace ConsoleFileManager
                 file.CopyTo(targetFilePath);
             }
 
-
             if (recursive)
             {
                 foreach (DirectoryInfo subDir in dirs)
@@ -343,7 +489,10 @@ namespace ConsoleFileManager
                 }
             }
         }
-        // Рекурсивное удаление каталога (моё)
+        /// <summary>
+        /// Удаление каталога
+        /// </summary>
+        /// <param name="sourceDir">Путь на котолог</param>
         static void DelDirectory(string sourceDir)
         {
             var dir = new DirectoryInfo(sourceDir);
